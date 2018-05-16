@@ -10,8 +10,16 @@ import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import android.content.Intent
+import android.net.Uri
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+    private val TWITTER_LINK = "https://twitter.com/openchennai"
+    private val FACEBOOK_LINK = "https://facebook.com/openchennai"
+    private val INSTAGRAM_LINK = "https://instagram.com/openchennai"
+    private val YOUTUBE_LINK = "https://www.youtube.com/channel/UCZx7M37xyu0s6-7OJ2uverg"
+    private val GITHUB_LINK = "https://github.com/openchennai"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,8 +69,88 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_slideshow -> {
 
             }
-            R.id.nav_send -> {
+            R.id.twitter -> {
+                try {
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(TWITTER_LINK)))
+                } catch (e: Exception) {
 
+                }
+            }
+            R.id.facebook -> {
+                try {
+                    applicationContext.packageManager.getPackageInfo("com.facebook.katana", 0)
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse( "fb://facewebmodal/f?href=" + FACEBOOK_LINK)))
+                } catch (e: Exception) {
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(FACEBOOK_LINK)))
+                }
+            }
+            R.id.instagram -> {
+                try {
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(INSTAGRAM_LINK)))
+                } catch (e: Exception) {
+                }
+            }
+            R.id.youtube -> {
+                try {
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(YOUTUBE_LINK)))
+                } catch (e: Exception) {
+
+                }
+            }
+            R.id.github -> {
+                try {
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(GITHUB_LINK)))
+                } catch (e: Exception) {
+
+                }
+            }
+            R.id.roads -> {
+                try {
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("$GITHUB_LINK/Roads/issues")))
+                } catch (e: Exception) {
+                }
+            }
+            R.id.water -> {
+                try {
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("$GITHUB_LINK/Water-and-Sanitation/issues")))
+                } catch (e: Exception) {
+                }
+            }
+            R.id.electricity -> {
+                try {
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("$GITHUB_LINK/Electricity/issues")))
+                } catch (e: Exception) {
+                }
+            }
+            R.id.garbage -> {
+                try {
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("$GITHUB_LINK/Garbage/issues")))
+                } catch (e: Exception) {
+                }
+            }
+            R.id.public_transport -> {
+                try {
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("$GITHUB_LINK/Public-Transport/issues")))
+                } catch (e: Exception) {
+                }
+            }
+            R.id.traffic -> {
+                try {
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("$GITHUB_LINK/Traffic/issues")))
+                } catch (e: Exception) {
+                }
+            }
+            R.id.trees -> {
+                try {
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("$GITHUB_LINK/Trees/issues")))
+                } catch (e: Exception) {
+                }
+            }
+            R.id.parks -> {
+                try {
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("$GITHUB_LINK/Parks-and-Playgrounds/issues")))
+                } catch (e: Exception) {
+                }
             }
         }
 
