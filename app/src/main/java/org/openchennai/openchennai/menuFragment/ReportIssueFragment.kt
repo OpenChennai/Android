@@ -42,6 +42,12 @@ class ReportIssueFragment : Fragment() {
     }
 
     companion object {
+        @JvmStatic
+        fun newInstance() =
+                ReportIssueFragment().apply {
+                    arguments = Bundle().apply {
+                    }
+                }
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.

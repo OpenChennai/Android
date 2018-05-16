@@ -1,25 +1,26 @@
 package org.openchennai.openchennai
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
+import android.support.v4.app.FragmentManager
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.app_bar_main.*
-import android.content.Intent
-import android.net.Uri
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import org.openchennai.openchennai.menuFragment.FAQFragment
-import org.openchennai.openchennai.menuFragment.LeaderboardFragment
-import org.openchennai.openchennai.menuFragment.MapFragment
-import org.openchennai.openchennai.menuFragment.ReportIssueFragment
+import org.openchennai.openchennai.menuFragment.*
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
 
     private val OPEN_CHENNAI_LINK = "https://openchennai.org"
     private val TWITTER_LINK = "https://twitter.com/openchennai"
@@ -28,28 +29,59 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private val YOUTUBE_LINK = "https://www.youtube.com/channel/UCZx7M37xyu0s6-7OJ2uverg"
     private val GITHUB_LINK = "https://github.com/openchennai"
 
+    private lateinit var mMap: GoogleMap
+
+    private lateinit var mapFragment: SupportMapFragment
+
+    private var isStartup = true
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-
-//        fab.setOnClickListener { view ->
-//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                    .setAction("Action", null).show()
-//        }
 
         val toggle = ActionBarDrawerToggle(this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+
+        val fragment = ReportIssueFragment.newInstance()
+        val fragmentManager: FragmentManager = supportFragmentManager
+
+//        if(isStartup) {
+//            (findViewById(R.id.content_frame) as FrameLayout).removeAllViews();
+//            isStartup = false;
+//        }
+
+        val fragmentTransaction = fragmentManager.beginTransaction()
+
+        fragmentTransaction.replace(R.id.placeHolder, fragment)
+        fragmentTransaction.commit()
+    }
+
+    override fun onMapReady(googleMap: GoogleMap) {
+        mMap = googleMap
+
+        // Add a marker in Sydney and move the camera
+        val sydney = LatLng(-34.0, 151.0)
+        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
     }
 
     override fun onBackPressed() {
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
             drawer_layout.closeDrawer(GravityCompat.START)
         } else {
-            super.onBackPressed()
+            val builder = AlertDialog.Builder(this@MainActivity)
+            builder.setTitle("Are you sure you want to exit?")
+            builder.setPositiveButton("EXIT") { _, _ ->
+                super.onBackPressed()
+            }
+            builder.setNegativeButton("NO") { _, _ ->
+            }
+            builder.show()
         }
     }
 
@@ -76,28 +108,30 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 val fragment = ReportIssueFragment()
                 val fragmentManager: FragmentManager = supportFragmentManager
                 val fragmentTransaction = fragmentManager.beginTransaction()
-                fragmentTransaction.replace(R.id.content_main, fragment)
+                fragmentTransaction.replace(R.id.placeHolder, fragment)
                 fragmentTransaction.commit()
             }
             R.id.nav_leaderboard -> {
                 val fragment = LeaderboardFragment()
                 val fragmentManager: FragmentManager = supportFragmentManager
                 val fragmentTransaction = fragmentManager.beginTransaction()
-                fragmentTransaction.replace(R.id.content_main, fragment)
+                fragmentTransaction.replace(R.id.placeHolder, fragment)
                 fragmentTransaction.commit()
             }
             R.id.nav_FAQ -> {
                 val fragment = FAQFragment()
                 val fragmentManager: FragmentManager = supportFragmentManager
                 val fragmentTransaction = fragmentManager.beginTransaction()
-                fragmentTransaction.replace(R.id.content_main, fragment)
+                fragmentTransaction.replace(R.id.placeHolder, fragment)
                 fragmentTransaction.commit()
             }
             R.id.nav_map -> {
-                val fragment = MapFragment()
+                mapFragment = SupportMapFragment()
+                mapFragment.getMapAsync(this)
+                val fragment = mapFragment
                 val fragmentManager: FragmentManager = supportFragmentManager
                 val fragmentTransaction = fragmentManager.beginTransaction()
-                fragmentTransaction.replace(R.id.content_main, fragment)
+                fragmentTransaction.replace(R.id.placeHolder, fragment)
                 fragmentTransaction.commit()
             }
             R.id.nav_website -> {
@@ -143,56 +177,40 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 }
             }
             R.id.roads -> {
-                try {
-                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("$GITHUB_LINK/Roads/issues")))
-                } catch (e: Exception) {
-                }
+                loadWebFragment("$GITHUB_LINK/Roads/issues")
             }
             R.id.water -> {
-                try {
-                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("$GITHUB_LINK/Water-and-Sanitation/issues")))
-                } catch (e: Exception) {
-                }
+                loadWebFragment("$GITHUB_LINK/Water-and-Sanitation/issues")
             }
             R.id.electricity -> {
-                try {
-                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("$GITHUB_LINK/Electricity/issues")))
-                } catch (e: Exception) {
-                }
+                loadWebFragment("$GITHUB_LINK/Electricity/issues")
             }
             R.id.garbage -> {
-                try {
-                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("$GITHUB_LINK/Garbage/issues")))
-                } catch (e: Exception) {
-                }
+                loadWebFragment("$GITHUB_LINK/Garbage/issues")
             }
             R.id.public_transport -> {
-                try {
-                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("$GITHUB_LINK/Public-Transport/issues")))
-                } catch (e: Exception) {
-                }
+                loadWebFragment("$GITHUB_LINK/Public-Transport/issues")
             }
             R.id.traffic -> {
-                try {
-                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("$GITHUB_LINK/Traffic/issues")))
-                } catch (e: Exception) {
-                }
+                loadWebFragment("$GITHUB_LINK/Traffic/issues")
             }
             R.id.trees -> {
-                try {
-                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("$GITHUB_LINK/Trees/issues")))
-                } catch (e: Exception) {
-                }
+                loadWebFragment("$GITHUB_LINK/Trees/issues")
             }
             R.id.parks -> {
-                try {
-                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("$GITHUB_LINK/Parks-and-Playgrounds/issues")))
-                } catch (e: Exception) {
-                }
+                loadWebFragment("$GITHUB_LINK/Parks-and-Playgrounds/issues")
             }
         }
 
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    private fun loadWebFragment(url: String) {
+        val fragment = WebFragment.newInstance(url, "")
+        val fragmentManager: FragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.placeHolder, fragment)
+        fragmentTransaction.commit()
     }
 }
