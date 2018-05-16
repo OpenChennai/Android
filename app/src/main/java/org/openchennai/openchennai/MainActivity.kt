@@ -12,6 +12,12 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import android.content.Intent
 import android.net.Uri
+import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
+import org.openchennai.openchennai.menuFragment.FAQFragment
+import org.openchennai.openchennai.menuFragment.LeaderboardFragment
+import org.openchennai.openchennai.menuFragment.MapFragment
+import org.openchennai.openchennai.menuFragment.ReportIssueFragment
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -32,8 +38,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     .setAction("Action", null).show()
         }
 
-        val toggle = ActionBarDrawerToggle(
-                this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        val toggle = ActionBarDrawerToggle(this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
 
@@ -68,12 +73,32 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_report_issue -> {
+                val fragment = ReportIssueFragment()
+                val fragmentManager: FragmentManager = supportFragmentManager
+                val fragmentTransaction = fragmentManager.beginTransaction()
+                fragmentTransaction.replace(R.id.content_main, fragment)
+                fragmentTransaction.commit()
             }
             R.id.nav_leaderboard -> {
+                val fragment = LeaderboardFragment()
+                val fragmentManager: FragmentManager = supportFragmentManager
+                val fragmentTransaction = fragmentManager.beginTransaction()
+                fragmentTransaction.replace(R.id.content_main, fragment)
+                fragmentTransaction.commit()
             }
             R.id.nav_FAQ -> {
+                val fragment = FAQFragment()
+                val fragmentManager: FragmentManager = supportFragmentManager
+                val fragmentTransaction = fragmentManager.beginTransaction()
+                fragmentTransaction.replace(R.id.content_main, fragment)
+                fragmentTransaction.commit()
             }
             R.id.nav_map -> {
+                val fragment = MapFragment()
+                val fragmentManager: FragmentManager = supportFragmentManager
+                val fragmentTransaction = fragmentManager.beginTransaction()
+                fragmentTransaction.replace(R.id.content_main, fragment)
+                fragmentTransaction.commit()
             }
             R.id.nav_website -> {
                 try {
