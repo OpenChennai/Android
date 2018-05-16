@@ -30,23 +30,23 @@
         <menu>
             <item
                 android:id="@+id/twitter"
-                android:icon="@drawable/ic_menu_send"
+                android:icon="@drawable/twitter"
                 android:title="Twitter" />
             <item
-                android:id="@+id/instagram"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Instagram" />
-            <item
                 android:id="@+id/facebook"
-                android:icon="@drawable/ic_menu_send"
+                android:icon="@drawable/facebook"
                 android:title="Facebook" />
             <item
+                android:id="@+id/instagram"
+                android:icon="@drawable/instagram"
+                android:title="Instagram" />
+            <item
                 android:id="@+id/youtube"
-                android:icon="@drawable/ic_menu_send"
+                android:icon="@drawable/youtube"
                 android:title="YouTube" />
             <item
                 android:id="@+id/github"
-                android:icon="@drawable/ic_menu_send"
+                android:icon="@drawable/github_circle"
                 android:title="GitHub" />
         </menu>
     </item>
@@ -55,35 +55,35 @@
         <menu>
             <item
                 android:id="@+id/roads"
-                android:icon="@drawable/ic_menu_send"
+                android:icon="@drawable/road"
                 android:title="Roads" />
             <item
                 android:id="@+id/water"
-                android:icon="@drawable/ic_menu_send"
+                android:icon="@drawable/water"
                 android:title="Water and Sanitation" />
             <item
                 android:id="@+id/electricity"
-                android:icon="@drawable/ic_menu_send"
+                android:icon="@drawable/flash"
                 android:title="Electricity" />
             <item
                 android:id="@+id/garbage"
-                android:icon="@drawable/ic_menu_send"
+                android:icon="@drawable/delete"
                 android:title="Garbage" />
             <item
                 android:id="@+id/public_transport"
-                android:icon="@drawable/ic_menu_send"
+                android:icon="@drawable/bus"
                 android:title="Public Transport" />
             <item
                 android:id="@+id/traffic"
-                android:icon="@drawable/ic_menu_send"
+                android:icon="@drawable/traffic_light"
                 android:title="Traffic" />
             <item
                 android:id="@+id/trees"
-                android:icon="@drawable/ic_menu_send"
+                android:icon="@drawable/tree"
                 android:title="Trees" />
             <item
                 android:id="@+id/parks"
-                android:icon="@drawable/ic_menu_send"
+                android:icon="@drawable/soccer"
                 android:title="Parks and Playgrounds" />
         </menu>
     </item>
