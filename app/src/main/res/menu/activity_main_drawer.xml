@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_slideshow"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Report issue" />
+        <item
+            android:id="@+id/nav_leaderboard"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Leaderboard" />
+        <item
+            android:id="@+id/nav_FAQ"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="FAQ" />
+        <item
+            android:id="@+id/nav_map"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Map" />
+        <item
+            android:id="@+id/nav_website"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="openchennai.org" />
+    </group>
+
+    <item android:title="Social accounts">
+        <menu>
+            <item
+                android:icon="@drawable/ic_menu_send"
+                android:title="Twitter" />
+            <item
+                android:icon="@drawable/ic_menu_send"
+                android:title="Instagram" />
+            <item
+                android:icon="@drawable/ic_menu_send"
+                android:title="Facebook" />
+            <item
+                android:icon="@drawable/ic_menu_send"
+                android:title="YouTube" />
+            <item
+                android:icon="@drawable/ic_menu_send"
+                android:title="GitHub" />
+        </menu>
+    </item>
+
+    <item android:title="Issue sections">
+        <menu>
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Roads" />
+            <item
+                android:icon="@drawable/ic_menu_send"
+                android:title="Water and Sanitation" />
+            <item
+                android:icon="@drawable/ic_menu_send"
+                android:title="Electricity" />
+            <item
+                android:icon="@drawable/ic_menu_send"
+                android:title="Garbage" />
+            <item
+                android:icon="@drawable/ic_menu_send"
+                android:title="Public Transport" />
+            <item
+                android:icon="@drawable/ic_menu_send"
+                android:title="Traffic" />
+            <item
+                android:icon="@drawable/ic_menu_send"
+                android:title="Trees" />
+            <item
+                android:icon="@drawable/ic_menu_send"
+                android:title="Parks and Playgrounds" />
+        </menu>
+    </item>
+
+</menu>
