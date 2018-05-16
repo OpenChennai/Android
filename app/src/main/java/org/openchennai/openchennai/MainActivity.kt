@@ -15,6 +15,7 @@ import android.net.Uri
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
+    private val OPEN_CHENNAI_LINK = "https://openchennai.org"
     private val TWITTER_LINK = "https://twitter.com/openchennai"
     private val FACEBOOK_LINK = "https://facebook.com/openchennai"
     private val INSTAGRAM_LINK = "https://instagram.com/openchennai"
@@ -66,8 +67,20 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         when (item.itemId) {
-            R.id.nav_slideshow -> {
+            R.id.nav_report_issue -> {
+            }
+            R.id.nav_leaderboard -> {
+            }
+            R.id.nav_FAQ -> {
+            }
+            R.id.nav_map -> {
+            }
+            R.id.nav_website -> {
+                try {
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(OPEN_CHENNAI_LINK)))
+                } catch (e: Exception) {
 
+                }
             }
             R.id.twitter -> {
                 try {
@@ -79,7 +92,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.facebook -> {
                 try {
                     applicationContext.packageManager.getPackageInfo("com.facebook.katana", 0)
-                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse( "fb://facewebmodal/f?href=" + FACEBOOK_LINK)))
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("fb://facewebmodal/f?href=" + FACEBOOK_LINK)))
                 } catch (e: Exception) {
                     startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(FACEBOOK_LINK)))
                 }
