@@ -5,9 +5,15 @@ import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import org.openchennai.openchennai.R
+import android.widget.ArrayAdapter
+import android.widget.Spinner
+import android.widget.Toast
+import org.openchennai.openchennai.MainActivity
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -29,6 +35,8 @@ class ReportIssueFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private var selectedItem: String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -38,7 +46,27 @@ class ReportIssueFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_report_issue, container, false)
+        val v: View = inflater.inflate(R.layout.fragment_report_issue, container, false)
+        val values = MainActivity.repositories
+        val spinner = v.findViewById(R.id.sectionSpinner) as Spinner
+        val adapter = ArrayAdapter(this.activity, android.R.layout.simple_spinner_item, values)
+        adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line)
+        spinner.adapter = adapter
+        return v
+    }
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val spinner = view!!.findViewById(R.id.sectionSpinner) as Spinner
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+//                Toast.makeText(activity, MainActivity.repositories[position], Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+        }
     }
 
     companion object {

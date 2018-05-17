@@ -206,4 +206,20 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         fragmentTransaction.replace(R.id.placeHolder, fragment)
         fragmentTransaction.commit()
     }
+
+    companion object {
+        @JvmStatic
+        val repositories = arrayOf(
+                "Roads",
+                "Water-and-Sanitation",
+                "Electricity",
+                "Garbage",
+                "Public-Transport",
+                "Traffic",
+                "Parks-and-Playgrounds",
+                "Trees"
+                // 'Community",
+                // 'openchennai.github.io'
+        );
+    }
 }

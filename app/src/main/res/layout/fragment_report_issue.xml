@@ -86,6 +86,7 @@
             android:text="Issue section " />
 
         <Spinner
+            android:id="@+id/sectionSpinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
