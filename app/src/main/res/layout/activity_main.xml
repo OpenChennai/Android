@@ -33,13 +33,6 @@
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-        <!--<fragment-->
-            <!--android:id="@+id/content_map"-->
-            <!--android:name="com.google.android.gms.maps.SupportMapFragment"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--tools:context=".MainActivity" />-->
-
     </android.support.design.widget.CoordinatorLayout>
 
     <android.support.design.widget.NavigationView

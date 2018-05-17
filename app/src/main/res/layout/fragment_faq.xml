@@ -20,8 +20,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:baselineAligned="false"
+            app:fontFamily="sans-serif-thin"
             android:text="FAQ"
-            android:textStyle="bold"
             android:textSize="24sp"
             android:layout_marginTop="8dp"
             />
@@ -30,105 +30,127 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:baselineAligned="false"
+            app:fontFamily="sans-serif-thin"
             android:text="What do we gain by reporting and tracking issues?"
             android:textStyle="bold"
-            android:textSize="16sp"
+            android:textSize="17sp"
             android:layout_marginTop="8dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:baselineAligned="false"
+            app:fontFamily="sans-serif-light"
+            android:textSize="16sp"
             android:text="We want to record concerns of citizens in an open manner and never lose track of them." />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:baselineAligned="false"
+            app:fontFamily="sans-serif-thin"
             android:text="Is any action guaranteed to fix the reported issues?"
             android:textStyle="bold"
-            android:textSize="16sp"
+            android:textSize="17sp"
             android:layout_marginTop="8dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:baselineAligned="false"
+            app:fontFamily="sans-serif-light"
+            android:textSize="16sp"
             android:text="We hope to get involved in taking action as well, but no promises for now." />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:baselineAligned="false"
+            app:fontFamily="sans-serif-thin"
             android:text="If no action is guaranteed, what is the actual benefit?"
             android:textStyle="bold"
-            android:textSize="16sp"
+            android:textSize="17sp"
             android:layout_marginTop="8dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:baselineAligned="false"
+            app:fontFamily="sans-serif-light"
+            android:textSize="16sp"
             android:text="Think of Wikipedia. Now imagine something like that for the city's civic issues. Documenting issues is the first step towards solving them." />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:baselineAligned="false"
+            app:fontFamily="sans-serif-thin"
             android:text="Is there any benefit for me, individually?"
             android:textStyle="bold"
-            android:textSize="16sp"
+            android:textSize="17sp"
             android:layout_marginTop="8dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:baselineAligned="false"
+            app:fontFamily="sans-serif-light"
+            android:textSize="16sp"
             android:text="We even have a leaderboard, if you are into such things! Check the Leaderboard menu in the Navigation drawer." />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:baselineAligned="false"
+            app:fontFamily="sans-serif-thin"
             android:text="Where do I view already reported issues?"
             android:textStyle="bold"
-            android:textSize="16sp"
+            android:textSize="17sp"
             android:layout_marginTop="8dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:baselineAligned="false"
+            app:fontFamily="sans-serif-light"
+            android:textSize="16sp"
             android:text="Check the Issue section in the Navigation drawer and you can see issues by selecting a section menu." />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:baselineAligned="false"
+            app:fontFamily="sans-serif-thin"
             android:text="How do I report issues?"
             android:textStyle="bold"
-            android:textSize="16sp"
+            android:textSize="17sp"
             android:layout_marginTop="8dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:baselineAligned="false"
+            app:fontFamily="sans-serif-light"
+            android:textSize="16sp"
             android:text="Reach out to us on social networks - OpenChennai on Twitter, Facebook and Instagram. You can also create GitHub issues directly or via the menu item in the Navigation Drawer." />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:baselineAligned="false"
+            app:fontFamily="sans-serif-thin"
             android:text="Who is running this effort? What are your motivations?"
             android:textStyle="bold"
-            android:textSize="16sp"
+            android:textSize="17sp"
             android:layout_marginTop="8dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:baselineAligned="false"
+            app:fontFamily="sans-serif-light"
+            android:layout_marginBottom="8dp"
+            android:textSize="16sp"
             android:text="We are just a group of individuals coming together to solve our own problems. We have no affiliations to any political entity and our intention is to build a community of like-minded citizens to solve our city's problems." />
 
     </LinearLayout>

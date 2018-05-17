@@ -9,6 +9,7 @@ import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
+import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -33,9 +34,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private lateinit var mapFragment: SupportMapFragment
 
-    private var isStartup = true
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -45,18 +43,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
 
+        drawer_layout.openDrawer(Gravity.LEFT)
+
         nav_view.setNavigationItemSelectedListener(this)
 
         val fragment = ReportIssueFragment.newInstance()
         val fragmentManager: FragmentManager = supportFragmentManager
-
-//        if(isStartup) {
-//            (findViewById(R.id.content_frame) as FrameLayout).removeAllViews();
-//            isStartup = false;
-//        }
-
         val fragmentTransaction = fragmentManager.beginTransaction()
-
         fragmentTransaction.replace(R.id.placeHolder, fragment)
         fragmentTransaction.commit()
     }
