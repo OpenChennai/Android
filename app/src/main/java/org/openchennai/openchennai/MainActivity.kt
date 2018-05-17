@@ -15,8 +15,6 @@ import android.view.MenuItem
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
-import com.android.volley.toolbox.JsonObjectRequest
-import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -26,7 +24,6 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONArray
-import org.json.JSONObject
 import org.openchennai.openchennai.menuFragment.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
@@ -55,7 +52,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private val GITHUB_LINK = "https://github.com/openchennai"
 
-    private lateinit var mMap: GoogleMap
+    private lateinit var gMap: GoogleMap
 
     private lateinit var mapFragment: SupportMapFragment
     var data: JSONArray = JSONArray()
@@ -129,12 +126,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
-        mMap = googleMap
+        gMap = googleMap
+        gMap.setMinZoomPreference(11.0F)
 
-        // Add a marker in Sydney and move the camera
-        val sydney = LatLng(-34.0, 151.0)
-        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        for (i in 0..positions.size - 1) {
+            val splitLatLong = positions[i].split(',')
+            val lat: Double = splitLatLong[0].toDouble()
+            val long: Double = splitLatLong[1].toDouble()
+            val latLng: LatLng = LatLng(lat, long)
+            gMap.addMarker(MarkerOptions().position(latLng))
+        }
+        gMap.moveCamera(CameraUpdateFactory.newLatLng(LatLng(13.045, 80.1707)))
     }
 
     override fun onBackPressed() {
