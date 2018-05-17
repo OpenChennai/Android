@@ -4,9 +4,14 @@ import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.recyclerview.R.attr.layoutManager
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import org.openchennai.openchennai.MainActivity
 import org.openchennai.openchennai.R
 
 
@@ -25,6 +30,11 @@ private const val ARG_PARAM2 = "param2"
  *
  */
 class LeaderboardFragment : Fragment() {
+
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var viewAdapter: RecyclerView.Adapter<*>
+    private lateinit var viewManager: RecyclerView.LayoutManager
+
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -37,10 +47,18 @@ class LeaderboardFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_leaderboard, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val view: View = inflater.inflate(R.layout.fragment_leaderboard, container, false)
+
+        viewManager = LinearLayoutManager(activity)
+        viewAdapter = MainActivity.LeaderboardAdapter((activity as MainActivity).reporters)
+
+        recyclerView = view.findViewById<RecyclerView>(R.id.leaderboard_recycler_view).apply {
+            setHasFixedSize(true)
+            layoutManager = viewManager
+            adapter = viewAdapter
+        }
+        return view
     }
 
     companion object {

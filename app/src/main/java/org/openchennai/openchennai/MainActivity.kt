@@ -9,9 +9,9 @@ import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
-import android.view.Gravity
-import android.view.Menu
-import android.view.MenuItem
+import android.support.v7.widget.RecyclerView
+import android.view.*
+import android.widget.TextView
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     val unsortedReps = MutableList(0) { Reporter() }
 
-    var reporters = MutableList(0) { Reporter() }
+    public var reporters = MutableList(0) { Reporter() }
 
     val positions: MutableList<String> = ArrayList()
 
@@ -356,5 +356,37 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
 
         this.reporters = sortedReps;
+    }
+
+    class LeaderboardAdapter(private val myDataset: MutableList<Reporter>) : RecyclerView.Adapter<LeaderboardAdapter.ViewHolder>() {
+        class ViewHolder(val view: View) : RecyclerView.ViewHolder(view)
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LeaderboardAdapter.ViewHolder {
+            val view: View = LayoutInflater.from(parent.context).inflate(R.layout.leaderboard_card, parent, false)
+            return ViewHolder(view)
+        }
+
+        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+            // - get element from your dataset at this position
+            // - replace the contents of the view with that element
+            val rankTextView = holder.view.findViewById(R.id.leaderboard_rank) as TextView
+            val nameTextView = holder.view.findViewById(R.id.leaderboard_name) as TextView
+            val countTextView = holder.view.findViewById(R.id.leaderboard_count) as TextView
+
+            rankTextView.text = myDataset[position].rank.toString()
+            nameTextView.text = myDataset[position].name
+            countTextView.text = myDataset[position].count.toString()
+
+            holder.view.setOnClickListener(object : View.OnClickListener {
+                override fun onClick(view: View) {
+                    try {
+                        view.context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(myDataset[position].link)))
+                    } catch (e: Exception) {
+                    }
+                }
+            })
+        }
+
+        override fun getItemCount() = myDataset.size
     }
 }
