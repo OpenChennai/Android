@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
 import android.view.*
 import android.widget.TextView
+import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
@@ -108,20 +109,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
         for (repo in repositories) {
-            val stringRequest = JsonArrayRequest(Request.Method.GET, url + "/" + repo + "/issues", null,
+            val jsonArrayRequest = JsonArrayRequest(Request.Method.GET, url + "/" + repo + "/issues", null,
                     Response.Listener<JSONArray> { data ->
                         this.data = data;
                         this.processData();
                         this.responsesReceived++;
                         this.checkAndPrepareTable();
-                        // Display the first 500 characters of the response string.
-//                    textView.text = "Response is: ${response.substring(0, 500)}"
                     },
                     Response.ErrorListener {
-                        //                    textView.text = "That didn't work!"
+                        Toast.makeText(this, "We are some trouble fetching details", Toast.LENGTH_SHORT).show()
                     }
             )
-            queue.add(stringRequest)
+            queue.add(jsonArrayRequest)
         }
     }
 
@@ -299,14 +298,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         var name = "";
         var link = "";
 
-        if (lines[0].startsWith("Reporter: ")) {
-            val reporterArr = lines[0].split("Reporter: ")
-            name = reporterArr[1]
+        if (lines.size > 0) {
+            if (lines[0].startsWith("Reporter: ")) {
+                val reporterArr = lines[0].split("Reporter: ")
+                name = reporterArr[1]
+            }
         }
 
-        if (lines[1].startsWith("Link: ")) {
-            val linkArr = lines[1].split("Link: ");
-            link = linkArr[1];
+        if (lines.size > 1) {
+            if (lines[1].startsWith("Link: ")) {
+                val linkArr = lines[1].split("Link: ");
+                link = linkArr[1];
+            }
         }
 
         if (name != "" && link != "") {
