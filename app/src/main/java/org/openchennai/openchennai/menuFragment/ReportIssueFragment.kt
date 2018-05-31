@@ -85,11 +85,11 @@ class ReportIssueFragment : Fragment() {
         val queue = Volley.newRequestQueue(activity)
         val url = "https://api.github.com/repos/OpenChennai/" + selectedSection + "/issues"
 
-        var name = (mainView.findViewById(R.id.name_text) as EditText).text.toString()
-        var link = (mainView.findViewById(R.id.link_text) as EditText).text.toString()
-        var description = (mainView.findViewById(R.id.description_text) as EditText).text.toString()
+        val name = (mainView.findViewById(R.id.name_text) as EditText).text.toString()
+        val link = (mainView.findViewById(R.id.link_text) as EditText).text.toString()
+        val description = (mainView.findViewById(R.id.description_text) as EditText).text.toString()
 
-        var title = ""
+        var title: String
         if (description.length >= 80) {
             title = description.substring(0, 80)
         } else {

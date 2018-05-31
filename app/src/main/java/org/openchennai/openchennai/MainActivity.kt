@@ -1,10 +1,13 @@
 package org.openchennai.openchennai
 
 import android.content.Intent
+import android.content.res.Resources
 import android.net.Uri
 import android.os.Bundle
+import android.support.customtabs.CustomTabsIntent
 import android.support.design.widget.NavigationView
 import android.support.v4.app.FragmentManager
+import android.support.v4.content.ContextCompat
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AlertDialog
@@ -97,11 +100,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawer_layout.openDrawer(Gravity.LEFT)
 
         nav_view.setNavigationItemSelectedListener(this)
-    }
 
-    override fun onResume() {
-        super.onResume()
-        // Instantiate the RequestQueue.
         val queue = Volley.newRequestQueue(this)
         val url = "https://api.github.com/repos/OpenChennai"
 
@@ -268,11 +267,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun loadWebFragment(url: String) {
-        val fragment = WebFragment.newInstance(url, "")
-        val fragmentManager: FragmentManager = supportFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.placeHolder, fragment)
-        fragmentTransaction.commit()
+//        val fragment = WebFragment.newInstance(url, "")
+//        val fragmentManager: FragmentManager = supportFragmentManager
+//        val fragmentTransaction = fragmentManager.beginTransaction()
+//        fragmentTransaction.replace(R.id.placeHolder, fragment)
+//        fragmentTransaction.commit()
+
+        val builder: CustomTabsIntent.Builder = CustomTabsIntent.Builder()
+        builder.setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimary))
+        val customTabsIntent: CustomTabsIntent = builder.build();
+        customTabsIntent.launchUrl(this, Uri.parse(url));
     }
 
 
