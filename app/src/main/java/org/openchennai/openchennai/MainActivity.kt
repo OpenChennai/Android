@@ -45,6 +45,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
+    class MapIssue(var title: String, var url: String, var latLong: String) {
+
+    }
+
     private val OPEN_CHENNAI_LINK = "https://openchennai.org"
     private val TWITTER_LINK = "https://twitter.com/openchennai"
     private val FACEBOOK_LINK = "https://facebook.com/openchennai"
@@ -63,7 +67,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     public var reporters = MutableList(0) { Reporter() }
 
-    val positions: MutableList<String> = ArrayList()
+    val issues: MutableList<MapIssue> = ArrayList()
 
     companion object {
         @JvmStatic
@@ -130,12 +134,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         gMap = googleMap
         gMap.setMinZoomPreference(12.0F)
 
-        for (i in 0..positions.size - 1) {
-            val splitLatLong = positions[i].split(',')
+        for (i in 0..issues.size - 1) {
+            val splitLatLong = issues[i].latLong.split(',')
             val lat: Double = splitLatLong[0].toDouble()
             val long: Double = splitLatLong[1].toDouble()
             val latLng: LatLng = LatLng(lat, long)
-            gMap.addMarker(MarkerOptions().position(latLng).title("Test").snippet("This is a test string"))
+            gMap.addMarker(MarkerOptions().position(latLng).title(issues[i].title).snippet(issues[i].url))
+        }
+        gMap.setOnInfoWindowClickListener {
+            loadWebFragment(it.snippet)
         }
         gMap.moveCamera(CameraUpdateFactory.newLatLng(LatLng(13.045, 80.2200)))
     }
@@ -272,15 +279,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     fun processData() {
         for (i in 0..this.data.length() - 1) {
             val content = this.data.getJSONObject(i)
-            val body: String = content.getString("body");
+            val body: String = content.getString("body")
+            val issueTitle: String = content.getString("title")
+            val issueUrl: String = content.getString("html_url")
             val lines = body.split("\r\n");
-            this.getLeaderboardDetails(lines);
-            this.getLocations(lines);
+            this.setLeaderboardDetails(lines);
+            this.setLocations(lines, issueTitle, issueUrl)
         }
-
     }
 
-    fun getLeaderboardDetails(lines: List<String>) {
+    fun setLeaderboardDetails(lines: List<String>) {
         var name = "";
         var link = "";
 
@@ -316,12 +324,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-    fun getLocations(lines: List<String>) {
+    fun setLocations(lines: List<String>, title: String, url: String) {
         for (i in 0..lines.size - 1) {
             if (lines[i].startsWith("Location: ")) {
                 val extractedArray = lines[i].split("Location: ");
                 val latLong = extractedArray[1];
-                this.positions.add(latLong);
+                val issue: MapIssue = MapIssue(title, url, latLong)
+                this.issues.add(issue);
             }
         }
     }
