@@ -106,7 +106,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
         for (repo in repositories) {
-            val jsonArrayRequest = JsonArrayRequest(Request.Method.GET, url + "/" + repo + "/issues", null,
+            val jsonArrayRequest = JsonArrayRequest(Request.Method.GET, url + "/" + repo + "/issues?state=all", null,
                     Response.Listener<JSONArray> { data ->
                         this.data = data;
                         this.processData();
@@ -310,7 +310,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
         }
 
-        if (name != "" && link != "") {
+        if (name != "") {
             var userExists = false;
             for (i in 0..this.unsortedReps.size - 1) {
                 if (this.unsortedReps[i].name == name && this.unsortedReps[i].link == link) {
@@ -369,8 +369,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            // - get element from your dataset at this position
-            // - replace the contents of the view with that element
             val rankTextView = holder.view.findViewById(R.id.leaderboard_rank) as TextView
             val nameTextView = holder.view.findViewById(R.id.leaderboard_name) as TextView
             val countTextView = holder.view.findViewById(R.id.leaderboard_count) as TextView

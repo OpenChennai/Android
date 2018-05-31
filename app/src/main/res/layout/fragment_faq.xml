@@ -132,7 +132,7 @@
             android:baselineAligned="false"
             app:fontFamily="sans-serif-light"
             android:textSize="16sp"
-            android:text="Reach out to us on social networks - OpenChennai on Twitter, Facebook and Instagram. You can also create GitHub issues directly or via the menu item in the Navigation Drawer." />
+            android:text="Reach out to us on social networks - OpenChennai on Twitter, Facebook and Instagram. You can also create GitHub issues directly." />
 
         <TextView
             android:layout_width="wrap_content"
