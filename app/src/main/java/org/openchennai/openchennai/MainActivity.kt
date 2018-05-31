@@ -93,12 +93,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawer_layout.openDrawer(Gravity.LEFT)
 
         nav_view.setNavigationItemSelectedListener(this)
-
-        val fragment = ReportIssueFragment.newInstance()
-        val fragmentManager: FragmentManager = supportFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.placeHolder, fragment)
-        fragmentTransaction.commit()
     }
 
     override fun onResume() {
@@ -115,6 +109,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                         this.processData();
                         this.responsesReceived++;
                         this.checkAndPrepareTable();
+
+                        mapFragment = SupportMapFragment()
+                        mapFragment.getMapAsync(this)
+                        val fragment = mapFragment
+                        val fragmentManager: FragmentManager = supportFragmentManager
+                        val fragmentTransaction = fragmentManager.beginTransaction()
+                        fragmentTransaction.replace(R.id.placeHolder, fragment)
+                        fragmentTransaction.commit()
                     },
                     Response.ErrorListener {
                         Toast.makeText(this, "We are some trouble fetching details", Toast.LENGTH_SHORT).show()
@@ -126,16 +128,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onMapReady(googleMap: GoogleMap) {
         gMap = googleMap
-        gMap.setMinZoomPreference(11.0F)
+        gMap.setMinZoomPreference(12.0F)
 
         for (i in 0..positions.size - 1) {
             val splitLatLong = positions[i].split(',')
             val lat: Double = splitLatLong[0].toDouble()
             val long: Double = splitLatLong[1].toDouble()
             val latLng: LatLng = LatLng(lat, long)
-            gMap.addMarker(MarkerOptions().position(latLng))
+            gMap.addMarker(MarkerOptions().position(latLng).title("Test").snippet("This is a test string"))
         }
-        gMap.moveCamera(CameraUpdateFactory.newLatLng(LatLng(13.045, 80.1707)))
+        gMap.moveCamera(CameraUpdateFactory.newLatLng(LatLng(13.045, 80.2200)))
     }
 
     override fun onBackPressed() {
@@ -153,32 +155,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.main, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        when (item.itemId) {
-            R.id.action_settings -> return true
-            else -> return super.onOptionsItemSelected(item)
-        }
-    }
-
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         when (item.itemId) {
-            R.id.nav_report_issue -> {
-                val fragment = ReportIssueFragment()
-                val fragmentManager: FragmentManager = supportFragmentManager
-                val fragmentTransaction = fragmentManager.beginTransaction()
-                fragmentTransaction.replace(R.id.placeHolder, fragment)
-                fragmentTransaction.commit()
-            }
+//            R.id.nav_report_issue -> {
+//                val fragment = ReportIssueFragment()
+//                val fragmentManager: FragmentManager = supportFragmentManager
+//                val fragmentTransaction = fragmentManager.beginTransaction()
+//                fragmentTransaction.replace(R.id.placeHolder, fragment)
+//                fragmentTransaction.commit()
+//            }
             R.id.nav_leaderboard -> {
                 val fragment = LeaderboardFragment()
                 val fragmentManager: FragmentManager = supportFragmentManager

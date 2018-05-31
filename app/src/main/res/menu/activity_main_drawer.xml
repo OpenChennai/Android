@@ -4,10 +4,14 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
+        <!--<item-->
+            <!--android:id="@+id/nav_report_issue"-->
+            <!--android:icon="@drawable/plus_box"-->
+            <!--android:title="Report issue" />-->
         <item
-            android:id="@+id/nav_report_issue"
-            android:icon="@drawable/plus_box"
-            android:title="Report issue" />
+            android:id="@+id/nav_map"
+            android:icon="@drawable/map"
+            android:title="Map" />
         <item
             android:id="@+id/nav_leaderboard"
             android:icon="@drawable/format_list_numbers"
@@ -16,10 +20,6 @@
             android:id="@+id/nav_FAQ"
             android:icon="@drawable/comment_question"
             android:title="FAQ" />
-        <item
-            android:id="@+id/nav_map"
-            android:icon="@drawable/map"
-            android:title="Map" />
         <item
             android:id="@+id/nav_website"
             android:icon="@drawable/earth"
